@@ -1,0 +1,34 @@
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - name: Restore cached
+      uses: actions/cache/restore@v4
+      with:
+        key: cache
+        path: cache
+    - name: Install Dependencies
+      run: ./install.sh
+    - name: Build artifacts
+      run: ./build.sh
+    - name: Setup upterm session
+      uses: ento/action-upterm@arm64
+      with:
+        limit-access-to-actor: true
+        limit-access-to-users: My9xVm
+        wait-timeout-minutes: 15
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        path: output
+        compression-level: 0
+    - name: Save cached
+      uses: actions/cache/save@v4
+      with:
+        key: cache
+        path: cache

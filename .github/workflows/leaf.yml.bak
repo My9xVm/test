@@ -1,0 +1,25 @@
+name: CI
+on: [push]
+jobs:
+  leaf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v1
+        with:
+          go-version: '1.15.x'
+      - name: Build leaf-server
+        run: |
+          git clone --branch master --single-branch --no-tags --depth 1 https://github.com/ap4y/leaf
+          cd ./leaf/cmd/leaf-server/
+          curl https://raw.githubusercontent.com/My9xVm/test/master/patch/leaf.patch | patch -p0 -i -
+          GOOS=linux GOARCH=arm GOARM=7 go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+      - uses: actions/upload-artifact@v2
+        with:
+          name: leaf
+          path: ./leaf/cmd/leaf-server/leaf-server
+      - name: Get info
+        run: |
+          go version
+          git -C ./leaf/ log --pretty=format:'%h%n'
+          ls -l ./leaf/cmd/leaf-server/leaf-server
+          sha256sum ./leaf/cmd/leaf-server/leaf-server

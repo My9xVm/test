@@ -1,0 +1,10 @@
+name: CI
+on: push
+jobs:
+  DL:
+    runs-on: ubuntu-latest
+    steps:
+      - name: info
+        run: |
+          gcc -### -march=native /usr/include/stdlib.h
+          gcc -c -Q -march=native --help=target

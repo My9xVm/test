@@ -1,0 +1,25 @@
+name: CI
+on: push
+jobs:
+  miniflux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.16.x'
+      - name: Build miniflux
+        run: |
+          git clone --branch master --single-branch --no-tags --depth 1 https://github.com/miniflux/v2
+          cd ./v2/
+          CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+      - name: Get info
+        run: |
+          go version
+          git -C ./v2/ log --pretty=format:'%h%n'
+          ls -l ./v2/miniflux.app
+          sha256sum ./v2/miniflux.app
+      - uses: actions/upload-artifact@v2
+        with:
+          name: miniflux
+          path: ./v2/miniflux.app
+          if-no-files-found: error

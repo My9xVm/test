@@ -1,0 +1,14 @@
+name: CI
+on: push
+jobs:
+  DL:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DL
+        run: |
+          wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.8.6.tar.xz
+      - uses: actions/upload-artifact@v2
+        with:
+          name: linux
+          path: ./linux-5.8.6.tar.xz
+          if-no-files-found: error

@@ -1,0 +1,26 @@
+name: CI
+on: push
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v1
+        with:
+          go-version: '1.15.x'
+      - name: Build main
+        run: |
+          git clone --branch master --single-branch --no-tags --depth 1 https://github.com/fguillot/plop
+          cd ./plop/
+          go get -u=patch ./...
+          GOOS=linux go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+          #GOOS=linux GOARCH=arm GOARM=7 go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+      - uses: actions/upload-artifact@v2
+        with:
+          name: plop
+          path: ./plop/plop
+      - name: Get info
+        run: |
+          go version
+          git -C ./plop/ log --pretty=format:'%h%n'
+          ls -l ./plop/plop
+          sha256sum ./plop/plop

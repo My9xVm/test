@@ -1,0 +1,20 @@
+name: CI
+on: push
+jobs:
+  kineto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.16.x'
+      - name: Build gmnigit
+        run: |
+          git clone --branch master --single-branch --no-tags --depth 1 https://github.com/ngalaiko/miniboard
+          cd ./miniboard/backend/
+          GOOS=linux go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gmnigit
+          path: |
+            ./miniboard/backend/
+          if-no-files-found: error

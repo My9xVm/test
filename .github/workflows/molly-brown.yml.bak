@@ -1,0 +1,26 @@
+name: CI
+on: push
+jobs:
+  molly-brown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.16.x'
+      - name: Build molly-brown
+        run: |
+          go get github.com/BurntSushi/toml
+          git clone --branch master --single-branch --no-tags --depth 1 https://tildegit.org/solderpunk/molly-brown
+          cd ./molly-brown/
+          GOOS=linux GOARCH=arm GOARM=7 go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+      - uses: actions/upload-artifact@v2
+        with:
+          name: molly-brown
+          path: ./molly-brown/molly-brown
+          if-no-files-found: error
+      - name: Get info
+        run: |
+          go version
+          git -C ./molly-brown/ log --pretty=format:'%h%n'
+          ls -l ./molly-brown/molly-brown
+          sha256sum ./molly-brown/molly-brown

@@ -1,0 +1,37 @@
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Restore cached
+      uses: actions/cache/restore@v4
+      with:
+        key: cache
+        path: cache
+
+    - name: Install Dependencies
+      run: ./install.sh
+
+    - name: Build artifacts
+      run: ./build.sh
+
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+      with:
+        limit-access-to-actor: true
+        limit-access-to-users: My9xVm
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        path: output
+        compression-level: 0
+
+    - name: Save cached
+      uses: actions/cache/save@v4
+      with:
+        key: cache
+        path: cache

@@ -1,0 +1,11 @@
+--- main.go
++++ main.go
+@@ -34,7 +34,7 @@
+ 	srv := ui.NewServer(dm)
+ 	handler := srv.Handler(*devMode)
+ 	fs := http.FileServer(http.Dir(*decks))
+-	handler.Handle("/images/", http.StripPrefix("/images", fs))
++	handler.Handle("/assets/", http.StripPrefix("/assets", fs))
+ 
+ 	log.Println("Serving HTTP on", *addr)
+ 	if err := http.ListenAndServe(*addr, handler); err != nil {

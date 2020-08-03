@@ -13,14 +13,13 @@ jobs:
           cd ./main/
           GOOS=linux go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
           #GOOS=linux GOARCH=arm GOARM=7 go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
-          ls -lah
       - uses: actions/upload-artifact@v2
         with:
           name: main
-          path: ./main/main
+          path: ./main/bypass-GFW-SNI
       - name: Get info
         run: |
           go version
           git -C ./main/ log --pretty=format:'%h%n'
-          ls -l ./main/main
-          sha256sum ./main/main
+          ls -l ./main/bypass-GFW-SNI
+          sha256sum ./main/bypass-GFW-SNI

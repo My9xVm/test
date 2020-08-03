@@ -13,6 +13,7 @@ jobs:
           cd ./main/
           GOOS=linux go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
           #GOOS=linux GOARCH=arm GOARM=7 go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+          ls -lah
       - uses: actions/upload-artifact@v2
         with:
           name: main

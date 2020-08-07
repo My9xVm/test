@@ -17,6 +17,7 @@ jobs:
         with:
           name: dnscrypt-proxy
           path: ./dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy
+          if-no-files-found: error
       - name: Get info
         run: |
           go version

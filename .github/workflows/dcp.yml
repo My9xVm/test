@@ -12,7 +12,7 @@ jobs:
           git clone --branch master --single-branch --no-tags --depth 1 https://github.com/jedisct1/dnscrypt-proxy
           cd ./dnscrypt-proxy/dnscrypt-proxy/
           curl https://raw.githubusercontent.com/My9xVm/test/master/patch/dcp.patch | patch -p0 -i -
-          GOOS=linux GOARCH=arm GOARM=7 go build -a -buildmode=pie -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+          GOOS=linux GOARCH=arm GOARM=7 go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
       - uses: actions/upload-artifact@v2
         with:
           name: dnscrypt-proxy

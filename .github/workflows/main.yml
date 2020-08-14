@@ -11,7 +11,7 @@ jobs:
         run: |
           git clone --branch master --single-branch --no-tags --depth 1 https://github.com/bypass-GFW-SNI/main
           cd ./main/
-          GOOS=linux go build -a -buildmode=pie -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
+          GOOS=linux go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
           #GOOS=linux GOARCH=arm GOARM=7 go build -a -ldflags '-buildid= -d -s -w' -tags netgo -trimpath
       - uses: actions/upload-artifact@v2
         with:

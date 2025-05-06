@@ -5,3 +5,4 @@ zstar() {
 }
 
 zstar "$@"
+

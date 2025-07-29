@@ -16,12 +16,8 @@ jobs:
       run: ./install.sh
     - name: Build artifacts
       run: ./build.sh
-    - name: Setup upterm session
-      uses: ento/action-upterm@arm64
-      with:
-        limit-access-to-actor: false
-        limit-access-to-users: My9xVm
-        wait-timeout-minutes: 15
+    - uses: coder/wush-action@v1.0.0
+      timeout-minutes: 15
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
       with:

@@ -16,6 +16,18 @@ jobs:
       run: ./install.sh
     - name: Build artifacts
       run: ./build.sh
+    - name: Check Runner Environment
+      run: |
+        tty
+        which bash
+        which tmux
+        which clear
+        which tput
+        if [ -f /usr/share/terminfo/x/xterm-256color ]; then
+          echo "terminfo for xterm-256color found."
+        else
+          echo "Warning: terminfo for xterm-256color NOT found."
+        fi
     - name: Setup upterm session
       uses: ento/action-upterm@arm64
       with:

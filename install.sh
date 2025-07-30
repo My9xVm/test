@@ -96,7 +96,7 @@ if false; then
 
 else
 
-	sudo apt-get install ffmpeg  > /dev/null
+	echo sudo apt-get install ffmpeg  > /dev/null
 
 fi
 

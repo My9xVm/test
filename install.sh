@@ -123,7 +123,7 @@ if [ "$ARCH" = x86_64 ]; then
 		chmod +x  "cache/wireproxy"
 	fi
 	if [ ! -f "cache/wgcf" ]; then
-		func_curl --output wgcf "https://github.com/ViRb3/wgcf/releases/download/v2.2.25/wgcf_2.2.25_linux_amd64"
+		func_curl --output wgcf "https://github.com/ViRb3/wgcf/releases/download/v2.2.28/wgcf_2.2.28_linux_amd64"
 		chmod +x "cache/wgcf"
 	fi
 	if [ ! -f "cache/yt-dlp" ]; then
@@ -138,7 +138,7 @@ else
 		chmod +x  "cache/wireproxy"
 	fi
 	if [ ! -f "cache/wgcf" ]; then
-		func_curl --output wgcf "https://github.com/ViRb3/wgcf/releases/download/v2.2.25/wgcf_2.2.25_linux_arm64"
+		func_curl --output wgcf "https://github.com/ViRb3/wgcf/releases/download/v2.2.28/wgcf_2.2.28_linux_arm64"
 		chmod +x "cache/wgcf"
 	fi
 	if [ ! -f "cache/yt-dlp" ]; then

@@ -1,5 +1,5 @@
 name: CI
-on: [push]
+on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-24.04
@@ -16,8 +16,11 @@ jobs:
       run: ./install.sh
     - name: Build artifacts
       run: ./build.sh
-    - uses: coder/wush-action@v1.0.0
-      timeout-minutes: 360
+    - name: Setup upterm session
+      uses: owenthereal/action-upterm@v1
+      with:
+        limit-access-to-actor: true
+        limit-access-to-users: My9xVm
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
       with:
